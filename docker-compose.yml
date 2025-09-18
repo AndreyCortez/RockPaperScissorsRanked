@@ -1,0 +1,56 @@
+# Define a versão do Docker Compose
+version: '3.8'
+
+# Define os serviços (contêineres) que compõem sua aplicação
+services:
+
+  # Serviço do Backend (sua API)
+  # backend:
+  #   build:
+  #     context: ./Backend  # Caminho para a pasta do backend
+  #     dockerfile: Dockerfile
+  #   container_name: jokenpo_backend
+  #   restart: unless-stopped
+  #   env_file: .env         # Carrega as variáveis do arquivo .env
+  #   ports:
+  #     - "3001:3000"        # Mapeia a porta 3001 da VM para a 3000 do contêiner
+  #   networks:
+  #     - jokenpo-network
+  #   depends_on:
+  #     - db                 # Diz ao Docker para iniciar o banco de dados antes do backend
+
+  # Serviço do Frontend (seu app React servido pelo Nginx)
+  frontend:
+    build:
+      context: ./Frontend # Caminho para a pasta do frontend
+      dockerfile: Dockerfile
+    container_name: jokenpo_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"            # Mapeia a porta 80 da VM para a 80 do contêiner Nginx
+    networks:
+      - jokenpo-network
+    # depends_on:
+    #   - backend            # Inicia o frontend depois que o backend estiver pronto
+
+  # Serviço do Banco de Dados (PostgreSQL)
+  # db:
+  #   image: postgres:15-alpine # Usa uma imagem oficial e leve do PostgreSQL
+  #   container_name: jokenpo_db
+  #   restart: unless-stopped
+  #   env_file: .env         # Fornece as senhas e nomes do .env para o PostgreSQL
+  #   ports:
+  #     - "5432:5432"        # Mapeia a porta do PostgreSQL (opcional, para acesso externo)
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data # Garante que os dados do banco persistam
+  #   networks:
+  #     - jokenpo-network
+
+# Define as redes que os contêineres usarão para se comunicar
+networks:
+  jokenpo-network:
+    driver: bridge
+
+# Define os volumes para persistência de dados
+volumes:
+  postgres_data:
