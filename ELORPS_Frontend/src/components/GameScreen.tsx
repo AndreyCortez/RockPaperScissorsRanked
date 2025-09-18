@@ -87,7 +87,7 @@ export default function GameScreen() {
   };
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 text-white min-h-dvh flex flex-col py-4">
+    <div className="container mx-auto px-2 sm:px-4 text-white min-h-dvh flex flex-col md:pb-16 md:pt-8">
       <TimerBar key={gameHistory.length} />
 
       <div className="flex-1 flex flex-col justify-center items-center min-h-0">
