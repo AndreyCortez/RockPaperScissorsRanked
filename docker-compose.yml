@@ -22,7 +22,7 @@ services:
   # Serviço do Frontend (seu app React servido pelo Nginx)
   frontend:
     build:
-      context: ./Frontend # Caminho para a pasta do frontend
+      context: ./ELORPS_Frontend # Caminho para a pasta do frontend
       dockerfile: Dockerfile
     container_name: jokenpo_frontend
     restart: unless-stopped
